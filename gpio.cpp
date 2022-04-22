@@ -35,6 +35,17 @@ void Gpio::set(int pin, bool value)
         throw lguErrorText(result);
 }
 
+void Gpio::setPattern(int pattern)
+{
+    int value = 0;
+    int n = 0;
+    for(auto led : LEDS){
+        value = (pattern >> n) & 1;
+        lgGpioWrite(m_handle, led, value);
+        n++;
+    }
+}
+
 
 // Read pin state
 bool Gpio::get(int pin)
